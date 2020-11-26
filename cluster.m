@@ -4,7 +4,7 @@ arguments
     W (:,:) double
     opts.dbscan_minpts (1,1) = 2;
     opts.dbscan_eps (1,1) = 1.5;
-    opts.cluster_min_size = 15;
+    opts.cluster_min_size = 10;
     opts.cluster_min_weight = 3;
     opts.plot_flag = 1;
 end
@@ -26,7 +26,7 @@ c.id = (1:num_clusters)';
 c = sortrows(c, "size", "descend");
 
 disp(c(1:6,:));
-I = find(c.size < 15 | c.total_weight < 3);
+I = find(c.size < opts.cluster_min_size | opts.cluster_min_weight < 3);
 t(ismember(t.c, c.id(I)), :) = [];
 c(I, :) = [];
 [~,t.c] = max(t.c == c.id', [], 2);

@@ -8,6 +8,7 @@ end
 
 D1 = I_ins - I_ref;
 G_ref = imgradient(I_ref, "sobel");
+G_ref = imgaussfilt(G_ref, 0.5);
 sigma = median(abs(G_ref(:))) * opts.grad_attenuation_factor;
 D2 = D1.*exp(-(G_ref/sigma).^2);
 

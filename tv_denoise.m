@@ -2,7 +2,7 @@ function [I_ref_clean, lambda] = tv_denoise(I_ref, I_ins, opts)
 arguments
     I_ref (:,:) double
     I_ins (:,:) double
-    opts.lambdas = logspace(-0.5, 0.5, 10);
+    opts.lambdas = logspace(-1, 1, 50);
     opts.plot_flag (1,1) logical = true
 end
 
