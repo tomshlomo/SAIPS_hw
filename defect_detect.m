@@ -10,7 +10,8 @@ I_ins = I_ins/max(I_ins(:));
 I_ref = I_ref/max(I_ref(:));
 
 % alignement
-[I_ins_aligned, I_ref_aligned] = align(I_ins, I_ref, 1);
+% [I_ins_aligned, I_ref_aligned] = align(I_ins, I_ref, 1);
+[I_ins_aligned, I_ref_aligned] = align_fft(I_ins, I_ref, 1);
 
 % simple least-squares color matching
 I_ref_aligned = (I_ref_aligned(:)\I_ins_aligned(:)) * I_ref_aligned;
