@@ -17,6 +17,7 @@ I_ref_aligned = (I_ref_aligned(:)\I_ins_aligned(:)) * I_ref_aligned;
 
 %  denoising
 [I_ref_clean, lambda] = tv_denoise(I_ref_aligned, I_ins_aligned);
+lambda
 [I_ins_clean] = tv_denoise(I_ins_aligned, I_ref_clean, "lambdas", lambda);
 
 % color matching

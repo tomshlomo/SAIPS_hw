@@ -16,9 +16,17 @@ if opts.plot_flag
     tiledlayout("flow");
     ax(1) = nexttile();
     imshow(abs(G_ref), []);
+    title("G");
     ax(2) = nexttile();
     imshow(abs(D2), []);
-    linkaxes(ax(1:2), "xy");
+    title("D2");
+    ax(3) = nexttile();
+    imshow(I_ref, []);
+    title("ref");
+    ax(4) = nexttile();
+    imshow(I_ins, []);
+    title("ins");
+    linkaxes(ax(1:4), "xy");
     nexttile();
     histogram(abs(D2));
 end
