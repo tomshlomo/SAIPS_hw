@@ -6,15 +6,13 @@ arguments
 end
 
 % normalization
-I_ins = I_ins/max(I_ins(:));
-I_ref = I_ref/max(I_ref(:));
+scale = max(I_ref(:));
+I_ins = I_ins/scale;
+I_ref = I_ref/scale;
 
 % alignement
 % [I_ins_aligned, I_ref_aligned] = align(I_ins, I_ref, 1);
 [I_ins_aligned, I_ref_aligned] = align_fft(I_ins, I_ref, 1);
-
-% simple least-squares color matching
-I_ref_aligned = (I_ref_aligned(:)\I_ins_aligned(:)) * I_ref_aligned;
 
 %  denoising
 [I_ref_clean, lambda] = tv_denoise(I_ref_aligned, I_ins_aligned);
