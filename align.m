@@ -19,6 +19,8 @@ C = fft2(I_ins_med, N_corr, M_corr) .* conj(fft2(I_ref_med, N_corr, M_corr)); % 
 H = abs(fft2(fspecial('sobel'), N_corr, M_corr)).^2; % sobel kernel in the frequency domain
 cx = ifft2( C .* H); % grad in x, return to space
 cy = ifft2( C .* H'); % grad in y, return to space
+
+%% select peak
 c = cx.^2 + cy.^2;
 [~, i] = max(c(:));
 [i, j] = ind2sub(size(c), i);
@@ -29,6 +31,7 @@ if j > M_corr/2
     j = j - M_corr;
 end
 
+%% translate
 I_ref_shift = imtranslate(I_ref, [j-1, i-1], "FillValues", nan);
 
 %% plot
