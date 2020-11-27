@@ -11,8 +11,7 @@ I_ins = I_ins/scale;
 I_ref = I_ref/scale;
 
 % alignement
-% [I_ins_aligned, I_ref_aligned] = align(I_ins, I_ref, 1);
-[I_ins_aligned, I_ref_aligned] = align_fft(I_ins, I_ref, 1);
+[I_ins_aligned, I_ref_aligned] = align(I_ins, I_ref, 1);
 
 %  denoising
 [I_ref_clean, lambda] = tv_denoise(I_ref_aligned, I_ins_aligned);
