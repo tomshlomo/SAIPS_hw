@@ -5,13 +5,14 @@ arguments
     opts.dbscan_minpts (1,1) = 2;
     opts.dbscan_eps (1,1) = 1.5;
     opts.cluster_min_size = 10;
-    opts.cluster_min_weight = 3;
+    opts.cluster_min_weight = 0.3;
     opts.plot_flag = 1;
 end
 
 t = table();
 [t.x(:,1), t.x(:,2)] = find(B);
 t.w = W(B);
+t(t.x(:,1) == 1 | t.x(:,1) == size(B, 1) | t.x(:,2) == 1 | t.x(:,2) == size(B, 2), :) = []; % filter pixels on boundary
 [t.c, t.is_core] = dbscan(t.x, opts.dbscan_eps, opts.dbscan_minpts);
 t = t(t.c>0, :);
 
@@ -26,7 +27,7 @@ c.id = (1:num_clusters)';
 c = sortrows(c, "size", "descend");
 
 disp(c(1:6,:));
-I = find(c.size < opts.cluster_min_size | opts.cluster_min_weight < 3);
+I = find(c.size < opts.cluster_min_size | c.total_weight < opts.cluster_min_weight);
 t(ismember(t.c, c.id(I)), :) = [];
 c(I, :) = [];
 [~,t.c] = max(t.c == c.id', [], 2);

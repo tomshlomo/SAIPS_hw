@@ -6,26 +6,21 @@ arguments
 end
 
 % normalization
-I_ins = I_ins/max(I_ins(:));
-I_ref = I_ref/max(I_ref(:));
+scale = max(I_ref(:));
+I_ins = I_ins/scale;
+I_ref = I_ref/scale;
 
 % alignement
 [I_ins_aligned, I_ref_aligned] = align(I_ins, I_ref, 1);
 
-% simple least-squares color matching
-I_ref_aligned = (I_ref_aligned(:)\I_ins_aligned(:)) * I_ref_aligned;
-
 %  denoising
 [I_ref_clean, lambda] = tv_denoise(I_ref_aligned, I_ins_aligned);
-lambda
 [I_ins_clean] = tv_denoise(I_ins_aligned, I_ref_clean, "lambdas", lambda);
 
 % color matching
 [f, outliers] = color_correction(I_ref_clean, I_ins_clean);
 D = diff_map(f(I_ref_clean), I_ins_aligned);
 B = threshold(D, outliers);
-% %     figure;
-% %     histogram(B1(:));
 M = cluster(B, abs(D));
 
 if plot_flag

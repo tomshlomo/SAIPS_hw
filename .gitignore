@@ -1,0 +1,11 @@
+
+*.eps
+*.fig
+*.fig
+*.fig
+*.png
+*.fig
+results/case3.fig
+results/case1.fig
+results/case2.fig
+results/case2.png
