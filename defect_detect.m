@@ -15,15 +15,12 @@ I_ref = I_ref/scale;
 
 %  denoising
 [I_ref_clean, lambda] = tv_denoise(I_ref_aligned, I_ins_aligned);
-lambda
 [I_ins_clean] = tv_denoise(I_ins_aligned, I_ref_clean, "lambdas", lambda);
 
 % color matching
 [f, outliers] = color_correction(I_ref_clean, I_ins_clean);
 D = diff_map(f(I_ref_clean), I_ins_aligned);
 B = threshold(D, outliers);
-% %     figure;
-% %     histogram(B1(:));
 M = cluster(B, abs(D));
 
 if plot_flag
